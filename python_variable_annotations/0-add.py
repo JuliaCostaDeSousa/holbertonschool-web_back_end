@@ -2,7 +2,6 @@
 """
 Module 0-add.py
 """
-import sys
 
 
 def add(float1: float, float2: float) -> float:
