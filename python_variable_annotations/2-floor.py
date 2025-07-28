@@ -5,7 +5,7 @@ Module 2-floor.py
 import math
 
 
-def floor(n: float) -> float:
+def floor(n: float) -> int:
     """
     Returns the floor of a float
     """
