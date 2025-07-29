@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Module 1-async_comprehension.py
+Module 2-measure_runtime.py
 """
 import time
 import asyncio
