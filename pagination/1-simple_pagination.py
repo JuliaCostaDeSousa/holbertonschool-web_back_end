@@ -3,6 +3,17 @@ import math
 from typing import List
 
 
+def index_range(page, page_size):
+    """
+    Returns a tuple of size two containing a start index and an end index.
+    """
+
+    if page == 1:
+        res = tuple([0, page_size])
+    res = tuple([(page - 1) * page_size, page * page_size])
+    return res
+
+
 class Server:
     """Server class to paginate a database of popular baby names.
     """
@@ -23,4 +34,12 @@ class Server:
         return self.__dataset
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
-            pass
+        """Returns the appropriate page of the dataset
+        """
+        data = self.dataset()
+        assert isinstance(page, int) and 0 < page
+        assert isinstance(page_size, int) and 0 < page_size
+        res = index_range(page, page_size)
+        if res[0] >= len(data):
+            return []
+        return data[res[0]:res[1]]
