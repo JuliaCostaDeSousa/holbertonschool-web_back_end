@@ -52,13 +52,11 @@ class Server:
     def get_hyper(self, page: int = 1, page_size: int = 10) -> Dict:
         """Returns a dictionary with page informations
         """
-        assert isinstance(page, int) and 0 < page
-        assert isinstance(page_size, int) and 0 < page_size
         total_page = math.ceil(len(self.dataset())/page_size)
         dic = {'page_size': page_size if page <= total_page else 0,
                'page': page,
                'data': self.get_page(page, page_size),
-               'next_page': page + 1 if page <= total_page else None,
+               'next_page': page + 1 if page < total_page else None,
                'prev_page': (page - 1) if (page > 1) else None,
                'total_pages': math.ceil(len(self.dataset())/page_size)
                }
