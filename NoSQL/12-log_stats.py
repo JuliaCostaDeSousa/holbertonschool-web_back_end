@@ -5,19 +5,19 @@ from pymongo import MongoClient
 if __name__ == "__main__":
     client = MongoClient('mongodb://127.0.0.1:27017')
     logs = client.logs.nginx
-    logs_number = logs.count()
-    GET_number = logs.filter({"method": "GET"}).count()
-    POST_number = logs.filter({"method": "POST"}).count()
-    PUT_number = logs.filter({"method": "PUT"}).count()
-    PATCH_number = logs.filter({"method": "PATCH"}).count()
-    DELETE_number = logs.filter({"method": "DELETE"}).count()
-    docs_number = logs.filter({"method": "DELETE", "path": "/status"}).count()
+    logs_number = logs.count_documents({})
+    GET_number = logs.count_documents({"method": "GET"})
+    POST_number = logs.count_documents({"method": "POST"})
+    PUT_number = logs.count_documents({"method": "PUT"})
+    PATCH_number = logs.count_documents({"method": "PATCH"})
+    DELETE_number = logs.count_documents({"method": "DELETE"})
+    docs_number = logs.count_documents({"method": "DELETE", "path": "/status"})
 
-    print("{} logs\n".format(logs_number))
-    print("Methods\n" /
-          "\tmethod GET: {}\n".format(GET_number) /
-          "\tmethod POST: {}\n".format(POST_number) /
-          "\tmethod PUT: {}\n".format(PUT_number) /
-          "\tmethod PATCH: {}\n".format(PATCH_number) /
-          "\tmethod DELETE: {}\n".format(DELETE_number))
-    print("{} status check\n".format(docs_number))
+    print("{} logs".format(logs_number))
+    print("Methods")
+    print("\tmethod GET: {}".format(GET_number))
+    print("\tmethod POST: {}".format(POST_number))
+    print("\tmethod PUT: {}".format(PUT_number))
+    print("\tmethod PATCH: {}".format(PATCH_number)) 
+    print("\tmethod DELETE: {}".format(DELETE_number))
+    print("{} status check".format(docs_number))
