@@ -1,5 +1,5 @@
 export default function hasValuesFromArray(set, array) {
-  if (!Array.isArray(array) || set instanceof Set === 'true') {
+  if (!Array.isArray(array) || !set instanceof Set) {
     throw new TypeError();
   }
   for (const element of array) {
