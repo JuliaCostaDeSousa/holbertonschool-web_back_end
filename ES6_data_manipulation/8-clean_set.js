@@ -1,6 +1,6 @@
 export default function cleanSet(set, startString) {
-  if (!set instanceof Set || !typeof(startString) === 'string') {
-    throw new TypeError();
+  if (!(set instanceof Set) || !(typeof(startString) === 'string')) {
+    return "";
   }
   if (startString === "") {
     return "";
@@ -9,12 +9,11 @@ export default function cleanSet(set, startString) {
   for (const element of set) {
     if (typeof(element) === 'string') {
       if (element.startsWith(startString)) {
-        res.push(element.slice(startString.length));
+        if (element.slice(startString.length) !== "") {
+          res.push(element.slice(startString.length));
+        }
       };   
     };
   };
-  if (res.length === 0) {
-    return "";
-  }
   return res.join('-');
 }
