@@ -12,7 +12,7 @@ export default function handleProfileSignup(firstName, lastName, fileName) {
         if (resultMap.status === 'fulfilled') {
           value = resultMap.value;
         } else {
-          value = resultMap.reason;
+          value = resultMap.reason.toString();
         }
         return {
             status: resultMap.status,
