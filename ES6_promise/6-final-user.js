@@ -8,10 +8,15 @@ export default function handleProfileSignup(firstName, lastName, fileName) {
   return Promise.allSettled(promises)
     .then(results =>
       results.map((resultMap) => {
+        let value;
         if (resultMap.status === 'fulfilled') {
-          return { status: resultMap.status, value: resultMap.value };
+          value = resultMap.value;
         } else {
-            return { status: resultMap.status, value: resultMap.reason };
+          value = resultMap.reason;
+        }
+        return {
+            status: resultMap.status,
+            value: value,
         }
     })
 );
