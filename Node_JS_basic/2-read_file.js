@@ -1,45 +1,43 @@
 function countStudents(path) {
   const fs = require("fs");
-  const csv = require('csv-parser');
-  const results = [];
   const fields = [];
-  const firstnames = [];
+  let data;
 
   try {
-    fs.createReadStream(path)
     data = fs.readFileSync(path, 'utf8');
-    data.split('\n').trim();
-    console.log(data);
-    /*
-        .pipe(csv())
-        .on('data', (row) => {
-          if (Object.values(row).toString() !== "") {
-            if (row.field !== "" && row.firstname !== "" ) {
-              results.push(row);
-              fields.push(row.field);
-              firstnames.push(row.firstname);
-            }
-          }
-        })
-        .on("error", () => {
-            throw new Error('Cannot load the database');
-        })
-        .on('end', () => {
-        studentsNB = results.length;
-        for (element of set(fields)) {
-          console.log(results.filter(((element) => {
-            element === results.field;
-            return results.firstname;
-          })));
-        }
-        console.log(studentsNB);
-        console.log(results);
-        console.log(fields);
-        console.log(firstnames);
-        });
-        */
   } catch {
     throw new Error('Cannot load the database');
   }
+  const lines = data.split('\n');
+  const headerLine = lines[0].split(',').map(h => h.trim());
+  const idxFirstname = headerLine.indexOf('firstname');
+  const idxField = headerLine.indexOf('field');
+
+  if (idxField < 0 || idxFirstname < 0) {
+   console.log('Number of students: 0');
+   return;
+  }
+
+  let linesCleaned = [];
+
+  for (const element of lines.slice(1)) {
+    if ((element) && element.trim() !== '') {
+      let splitLine = element.split(',').map(s => s.trim());
+      if (splitLine[idxFirstname].trim() !== '' && splitLine[idxField].trim() !== '') {
+        linesCleaned.push(splitLine);
+        fields.push(splitLine[idxField].trim());
+      }
+    }
+  }
+  console.log(`Number of students: ${linesCleaned.length}`);
+  const uniqueFields = new Set(fields);
+
+  for (const Ufield of uniqueFields) {
+    const selection = linesCleaned.filter(f => f[idxField] === Ufield);
+    const students = selection.map(col => col[idxFirstname]);
+    console.log(
+        `Number of students in ${Ufield}: ${selection.length}. List: ${students.join(', ')}`);
+  }
+
 }
 module.exports = countStudents;
