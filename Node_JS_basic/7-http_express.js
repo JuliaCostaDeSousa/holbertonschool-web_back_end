@@ -1,4 +1,3 @@
-const http = require('http');
 const { readFile } = require('fs/promises');
 const express = require('express');
 
@@ -44,14 +43,14 @@ app.get('/', async (req, res) => {
 });
 app.get('/students', async (req, res) => {
   res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-    try {
-      res.write('This is the list of our students\n');
-      const out = await countStudents(dbPath);
-      res.end(out);
-      return;
-    } catch (error) {
-      res.end('Cannot load the database');
-    }
+  try {
+    res.write('This is the list of our students\n');
+    const out = await countStudents(dbPath);
+    res.end(out);
+    return;
+  } catch (error) {
+    res.end('Cannot load the database');
+  }
 });
 
 if (require.main === module) {
