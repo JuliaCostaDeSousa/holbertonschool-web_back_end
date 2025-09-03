@@ -1,20 +1,10 @@
-console.log('Welcome to Holberton School, what is your name?');
-process.stdin.setEncoding('utf8');
-
-let printed = false;
-
-process.stdin.on('data', (chunk) => {
-  if (printed) return;
-  const name = String(chunk).trim();
-  console.log(`Your name is: ${name}`);
-  printed = true;
+process.stdout.write('Welcome to Holberton School, what is your name?\n');
+process.stdin.on("data", (data) => {
+  const name = data.toString().trim();
+  if (name) {
+    process.stdout.write(`Your name is: ${name}`);
+  }
 });
-
 process.stdin.on('end', () => {
-  console.log('This important software is now closing');
-});
-
-process.on('SIGINT', () => {
-  console.log('This important software is now closing');
-  process.exit(0);
+  process.stdout.write('This important software is now closing');
 });
