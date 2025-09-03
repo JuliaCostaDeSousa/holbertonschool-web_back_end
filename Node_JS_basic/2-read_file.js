@@ -1,5 +1,5 @@
 function countStudents(path) {
-  const fs = require("fs");
+  const fs = require('fs');
   const fields = [];
   let data;
 
@@ -38,6 +38,5 @@ function countStudents(path) {
     console.log(
         `Number of students in ${Ufield}: ${selection.length}. List: ${students.join(', ')}`);
   }
-
 }
 module.exports = countStudents;
