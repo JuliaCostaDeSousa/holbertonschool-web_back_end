@@ -8,7 +8,7 @@ function countStudents(path) {
   } catch (err) {
     throw new Error('Cannot load the database');
   }
-  const lines = data.split('\n');
+  const lines = data.split(/\r?\n/);
   if (lines.length === 0) {
     process.stdout.write('Number of students: 0\n');
     return;
@@ -26,12 +26,13 @@ function countStudents(path) {
 
   for (let i = 1; i < lines.length; i += 1) {
     const element = lines[i];
-    if ((element) && element.trim() !== '') {
-      let splitLine = element.split(',').map(s => s.trim());
-      if (splitLine[idxFirstname].trim() !== '' && splitLine[idxField].trim() !== '') {
-        linesCleaned.push(splitLine);
-        fields.push(splitLine[idxField].trim());
-      }
+    if (!element || element.trim() === '') continue;
+    const splitLine = element.split(',').map(s => s.trim());
+    if (splitLine.length !== headerLine.length) continue;
+
+    if (splitLine[idxFirstname] !== '' && splitLine[idxField] !== '') {
+      linesCleaned.push(splitLine);
+      fields.push(splitLine[idxField].trim());
     }
   }
   process.stdout.write(`Number of students: ${linesCleaned.length}\n`);
