@@ -6,7 +6,7 @@ function countStudents(path) {
   } catch (err) {
     throw new Error('Cannot load the database');
   }
-  const data = fs.readFileSync(database, 'utf8');
+  const data = fs.readFileSync(path, 'utf8');
   const lines = data.trim().split('\n');
   const headerLine = lines[0].split(',');
   const idxFirstname = headerLine.indexOf('firstname');
