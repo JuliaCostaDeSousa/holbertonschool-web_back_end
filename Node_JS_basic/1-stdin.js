@@ -1,14 +1,11 @@
 process.stdout.write('Welcome to Holberton School, what is your name?\n');
 
 process.stdin.on('data', (data) => {
-  const name = data.toString().trim();
-  if (name) {
-    process.stdout.write(`Your name is: ${name}\n`);
-  }
-  if (process.stdin.isTTY) {
-    process.exit(0);
-  }
+  const name = data;
+  process.stdout.write(`Your name is: ${name}`);
+  process.exit(0);
 });
-process.stdin.on('exit', () => {
-  process.stdout.write('This important software is now closing\n');
+
+process.on('exit', () => {
+  console.log('This important software is now closing');
 });
