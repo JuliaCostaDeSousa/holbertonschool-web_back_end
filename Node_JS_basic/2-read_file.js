@@ -21,7 +21,7 @@ function countStudents(path) {
     fields.push(splitLine[idxField].trim());
     }
 
-  process.stdout.write(`Number of students: ${linesCleaned.length}\n`);
+  console.log(`Number of students: ${linesCleaned.length}`);
   
   const uniqueFieldsArr = Array.from(new Set(fields));
 
@@ -29,8 +29,8 @@ function countStudents(path) {
     const Ufield = uniqueFieldsArr[i];
     const selection = linesCleaned.filter(f => f[idxField] === Ufield);
     const students = selection.map(col => col[idxFirstname]);
-    process.stdout.write(
-        `Number of students in ${Ufield}: ${selection.length}. List: ${students.join(', ')}\n`);
+    console.log(
+        `Number of students in ${Ufield}: ${selection.length}. List: ${students.join(', ')}`);
   }
 }
 module.exports = countStudents;
