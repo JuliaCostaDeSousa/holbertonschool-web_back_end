@@ -1,10 +1,9 @@
 const fs = require('fs');
 
 function countStudents(path) {
-
   if (!fs.existsSync(path)) {
     throw new Error('Cannot load the database');
-  };
+  }
 
   const data = fs.readFileSync(path, 'utf8');
   const lines = data.trim().split('\n');
@@ -19,18 +18,19 @@ function countStudents(path) {
     const splitLine = lines[i].split(',');
     linesCleaned.push(splitLine);
     fields.push(splitLine[idxField].trim());
-    }
+  }
 
   console.log(`Number of students: ${linesCleaned.length}`);
-  
+
   const uniqueFieldsArr = Array.from(new Set(fields));
 
   for (let i = 0; i < uniqueFieldsArr.length; i += 1) {
     const Ufield = uniqueFieldsArr[i];
-    const selection = linesCleaned.filter(f => f[idxField] === Ufield);
-    const students = selection.map(col => col[idxFirstname]);
+    const selection = linesCleaned.filter((f) => (f[idxField] === Ufield));
+    const students = selection.map((col) => (col[idxFirstname]));
     console.log(
-        `Number of students in ${Ufield}: ${selection.length}. List: ${students.join(', ')}`);
+      `Number of students in ${Ufield}: ${selection.length}. List: ${students.join(', ')}`,
+    );
   }
 }
 
