@@ -6,11 +6,11 @@ function countStudents(path) {
   try {
     data = fs.readFileSync(path, 'utf8');
   } catch (err) {
-    throw new Error('Cannot load the database');
+    throw new Error('Cannot load the database\n');
   }
   const lines = data.split('\n');
   if (lines.length === 0) {
-    console.log('Number of students: 0');
+    process.stdout.write('Number of students: 0\n');
     return;
   }
   const headerLine = lines[0].split(',').map(h => h.trim());
@@ -18,7 +18,7 @@ function countStudents(path) {
   const idxField = headerLine.indexOf('field');
 
   if (idxField < 0 || idxFirstname < 0) {
-   console.log('Number of students: 0');
+   process.stdout.write('Number of students: 0\n');
    return;
   }
 
@@ -34,15 +34,15 @@ function countStudents(path) {
       }
     }
   }
-  console.log(`Number of students: ${linesCleaned.length}`);
+  process.stdout.write(`Number of students: ${linesCleaned.length}\n`);
   const uniqueFields = new Set(fields);
 
   for (let i = 1; i < uniqueFields.length; i += 1) {
     const Ufield = uniqueFields[i];
     const selection = linesCleaned.filter(f => f[idxField] === Ufield);
     const students = selection.map(col => col[idxFirstname]);
-    console.log(
-        `Number of students in ${Ufield}: ${selection.length}. List: ${students.join(', ')}`);
+    process.stdout.write(
+        `Number of students in ${Ufield}: ${selection.length}. List: ${students.join(', ')}\n`);
   }
 }
 module.exports = countStudents;
