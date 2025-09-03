@@ -6,9 +6,9 @@ process.stdin.on('data', (data) => {
     process.stdout.write(`Your name is: ${name}\n`);
   }
   if (process.stdin.isTTY) {
-    process.stdin.pause();
+    process.exit(0);
   }
 });
-process.stdin.on('end', () => {
+process.stdin.on('exit', () => {
   process.stdout.write('This important software is now closing\n');
 });
