@@ -1,5 +1,6 @@
+const fs = require('fs');
+
 function countStudents(path) {
-  const fs = require('fs');
 
   if (!fs.existsSync(path)) {
     throw new Error('Cannot load the database');
@@ -32,4 +33,5 @@ function countStudents(path) {
         `Number of students in ${Ufield}: ${selection.length}. List: ${students.join(', ')}`);
   }
 }
+
 module.exports = countStudents;
