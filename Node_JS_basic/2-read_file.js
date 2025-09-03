@@ -6,7 +6,7 @@ function countStudents(path) {
   try {
     data = fs.readFileSync(path, 'utf8');
   } catch (err) {
-    throw new Error('Cannot load the database\n');
+    throw new Error('Cannot load the database');
   }
   const lines = data.split('\n');
   if (lines.length === 0) {
@@ -35,10 +35,10 @@ function countStudents(path) {
     }
   }
   process.stdout.write(`Number of students: ${linesCleaned.length}\n`);
-  const uniqueFields = new Set(fields);
+  const uniqueFieldsArr = Array.from(new Set(fields));
 
-  for (let i = 1; i < uniqueFields.length; i += 1) {
-    const Ufield = uniqueFields[i];
+  for (let i = 0; i < uniqueFieldsArr.length; i += 1) {
+    const Ufield = uniqueFieldsArr[i];
     const selection = linesCleaned.filter(f => f[idxField] === Ufield);
     const students = selection.map(col => col[idxFirstname]);
     process.stdout.write(
