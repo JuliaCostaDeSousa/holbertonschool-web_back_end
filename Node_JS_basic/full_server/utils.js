@@ -1,8 +1,8 @@
-import { readFile } from 'fs/promises';
+import fs from 'fs';
 
 export default async function readDatabase(path) {
   try {
-    const data = await readFile(path, 'utf8');
+    const data = await fs.promises.readFile(path, 'utf8');
     const lines = data.trim().split('\n');
     const headerLine = lines[0].split(',');
     const idxFirstname = headerLine.indexOf('firstname');
